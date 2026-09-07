@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Learn with Trader Munaaf</title>
+
+<meta property="og:title" content="Learn with Trader Munaaf">
+<meta property="og:description" content="A focused, mentor-led circle for learning the markets properly — one session at a time.">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Meta Pixel is loaded further down by the tracking script (loadMetaPixel),
+     so there's no separate init here — avoids a double PageView fire. -->
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2135032810416149&ev=PageView&noscript=1"
+/></noscript>
+
+<style>
+  :root{
+    --espresso:#17130F;
+    --panel:#221B15;
+    --panel2:#2A2118;
+    --cream:#F4EAD9;
+    --muted:rgba(244,234,217,0.55);
+    --gold:#C79A4E;
+    --gold-deep:#8B6427;
+    --line:rgba(244,234,217,0.10);
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  body{
+    background:var(--espresso);
+    color:var(--cream);
+    font-family:'Manrope', sans-serif;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .bg-glow{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background:
+      radial-gradient(circle at 20% 0%, rgba(199,154,78,0.10), transparent 45%),
+      radial-gradient(circle at 90% 85%, rgba(199,154,78,0.06), transparent 50%),
+      var(--espresso);
+  }
+
+  .wrap{ max-width:440px; margin:0 auto; padding:28px 20px 30px; }
+
+  /* ---------- Mark ---------- */
+  .mark{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:22px;
+  }
+  .mark-line{ flex:1; height:1px; background:var(--line); }
+  .mark-text{
+    font-size:11px;
+    letter-spacing:2.5px;
+    color:var(--gold);
+    font-weight:600;
+    white-space:nowrap;
+  }
+
+  /* ---------- Hero photo ---------- */
+  .hero-frame{
+    border-radius:10px;
+    overflow:hidden;
+    border:1px solid rgba(199,154,78,0.35);
+    box-shadow:0 18px 40px rgba(0,0,0,0.45);
+    position:relative;
+  }
+  .hero-frame img{
+    width:100%;
+    display:block;
+    aspect-ratio:4/5;
+    object-fit:cover;
+    object-position:center 20%;
+  }
+  .hero-caption{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    padding:14px 16px;
+    background:linear-gradient(0deg, rgba(23,19,15,0.92), transparent);
+    font-size:12.5px;
+    color:var(--muted);
+  }
+  .hero-caption strong{ color:var(--cream); font-weight:600; }
+
+  /* ---------- Headline ---------- */
+  .headline{
+    font-family:'Newsreader', serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:29px;
+    line-height:1.28;
+    color:var(--cream);
+    margin-top:24px;
+  }
+
+  .sub{
+    margin-top:12px;
+    font-size:14.5px;
+    line-height:1.65;
+    color:var(--muted);
+    max-width:380px;
+  }
+
+  /* ---------- Stat strip ---------- */
+  .stat-strip{
+    display:flex;
+    margin-top:26px;
+    padding:16px 0;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .stat{ flex:1; text-align:center; }
+  .stat + .stat{ border-left:1px solid var(--line); }
+  .stat .num{
+    font-family:'Newsreader', serif;
+    font-weight:600;
+    font-size:19px;
+    color:var(--gold);
+    line-height:1;
+  }
+  .stat .label{
+    margin-top:5px;
+    font-size:10.5px;
+    color:var(--muted);
+    line-height:1.35;
+  }
+
+  /* ---------- CTA ---------- */
+  .cta-zone{ margin-top:28px; }
+  .cta-zone-top{ margin-top:22px; }
+
+  .cta-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+    padding:17px;
+    background:transparent;
+    border:1px solid var(--gold);
+    color:var(--gold);
+    text-decoration:none;
+    border-radius:8px;
+    font-weight:700;
+    font-size:14.5px;
+    letter-spacing:0.3px;
+    cursor:pointer;
+    position:relative;
+    overflow:hidden;
+    transition:color 0.3s ease;
+  }
+  .cta-btn::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:var(--gold);
+    transform:translateX(-100%);
+    transition:transform 0.3s ease;
+    z-index:0;
+  }
+  .cta-btn:hover::before{ transform:translateX(0); }
+  .cta-btn:hover{ color:var(--espresso); }
+  .cta-btn span{ position:relative; z-index:1; }
+  .cta-btn:active{ transform:scale(0.98); }
+
+  .cta-note{
+    text-align:center;
+    font-size:11.5px;
+    color:var(--muted);
+    margin-top:10px;
+  }
+
+  .fallback-link{
+    display:none;
+    text-align:center;
+    font-size:12px;
+    color:var(--gold);
+    margin-top:10px;
+    text-decoration:underline;
+  }
+  .fallback-link.show{ display:block; }
+
+  /* ---------- How it works (timeline) ---------- */
+  .section-title{
+    font-family:'Newsreader', serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:19px;
+    color:var(--cream);
+    margin:34px 0 16px;
+  }
+
+  .timeline{ position:relative; padding-left:26px; }
+  .timeline::before{
+    content:'';
+    position:absolute;
+    left:6px; top:4px; bottom:4px;
+    width:1px;
+    background:var(--line);
+  }
+  .tl-step{ position:relative; padding-bottom:20px; }
+  .tl-step:last-child{ padding-bottom:0; }
+  .tl-step::before{
+    content:attr(data-n);
+    position:absolute;
+    left:-26px; top:-2px;
+    width:13px; height:13px;
+    border-radius:50%;
+    background:var(--espresso);
+    border:1px solid var(--gold);
+    color:var(--gold);
+    font-size:8px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .tl-step p{
+    font-size:13.5px;
+    line-height:1.55;
+    color:var(--muted);
+  }
+  .tl-step strong{ color:var(--cream); font-weight:600; }
+
+  /* ---------- Note ---------- */
+  .quiet-note{
+    margin-top:30px;
+    padding:16px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:8px;
+    font-size:13px;
+    line-height:1.6;
+    color:var(--muted);
+  }
+  .quiet-note strong{ color:var(--gold); font-weight:600; }
+
+  /* ---------- Legal ---------- */
+  .legal{
+    margin-top:32px;
+    font-size:11px;
+    color:var(--muted);
+    line-height:1.6;
+    text-align:center;
+    border-top:1px solid var(--line);
+    padding-top:20px;
+  }
+  .legal a{ color:var(--gold); text-decoration:none; }
+  .tabs{ display:flex; justify-content:center; gap:16px; margin-bottom:12px; }
+  .tab{ font-size:12px; color:var(--muted); cursor:pointer; border:none; background:none; font-family:inherit; font-weight:600; padding-bottom:2px; }
+  .tab.active{ color:var(--gold); border-bottom:1px solid var(--gold); }
+  .info{ display:none; text-align:left; padding:0 4px; }
+  .info.active{ display:block; }
+
+  .ad-credit{
+    text-align:center;
+    margin:22px 0 0;
+  }
+  .ad-credit p{ font-size:10.5px; color:var(--muted); margin-bottom:7px; }
+  .ad-credit a{
+    display:inline-block;
+    background:var(--panel2);
+    border:1px solid var(--line);
+    color:var(--cream);
+    padding:6px 14px;
+    border-radius:6px;
+    text-decoration:none;
+    font-weight:600;
+    font-size:11.5px;
+  }
+
+  @media (max-width:380px){
+    .headline{ font-size:25px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+
+<div class="wrap">
+
+  <div class="mark">
+    <span class="mark-text">TRADER MUNAAF</span>
+    <div class="mark-line"></div>
+  </div>
+
+  <div class="hero-frame">
+    <img src="munaf_jpg.jpeg" alt="Trader Munaaf">
+    <div class="hero-caption"><strong>Munaaf</strong> — mentor, market educator</div>
+  </div>
+
+  <h1 class="headline">Learn the markets the way they should be taught — slowly, and in order.</h1>
+  <p class="sub">మునాఫ్ నిజమైన సెటప్‌లను ఒక్కో పాఠం చొప్పున విడదీసే ఒక చిన్న టెలిగ్రామ్ సర్కిల్. షార్ట్‌కట్‌లు లేవు, గుడ్డిగా కాపీ చేయడానికి సిగ్నల్స్ లేవు — కేవలం మార్కెట్ల గురించి ఆలోచించడానికి ఒక స్పష్టమైన మార్గం మాత్రమే.</p>
+
+  <div class="cta-zone cta-zone-top">
+    <button class="cta-btn join-link" id="ctaBtnTop" type="button">
+      <span>Join Munaaf's Telegram Circle</span>
+    </button>
+    <p class="cta-note">Takes 10 seconds · request approved shortly after joining</p>
+  </div>
+
+  <div class="stat-strip">
+    <div class="stat">
+      <div class="num">6+ yrs</div>
+      <div class="label">Teaching the markets</div>
+    </div>
+    <div class="stat">
+      <div class="num">Weekday</div>
+      <div class="label">Live breakdown sessions</div>
+    </div>
+    <div class="stat">
+      <div class="num">Free</div>
+      <div class="label">To join the circle</div>
+    </div>
+  </div>
+
+  <div class="cta-zone">
+    <button class="cta-btn join-link" id="ctaBtn" type="button">
+      <span>Join Munaaf's Telegram Circle</span>
+    </button>
+    <p class="cta-note">Takes 10 seconds · request approved shortly after joining</p>
+    <a href="https://t.me/+tga_JjN7GUgzZmE1" id="fallbackLink" class="fallback-link" rel="noopener">
+      Not redirected? Tap here to join manually
+    </a>
+  </div>
+
+  <h2 class="section-title">How the circle works</h2>
+  <div class="timeline">
+    <div class="tl-step" data-n="1">
+      <p><strong>Join the Telegram group</strong> — you'll land in the circle alongside other learners.</p>
+    </div>
+    <div class="tl-step" data-n="2">
+      <p><strong>Follow the daily breakdowns</strong> — Munaaf walks through real charts and the reasoning behind each one.</p>
+    </div>
+    <div class="tl-step" data-n="3">
+      <p><strong>Ask, practice, repeat</strong> — bring your own charts and questions into the group as you learn.</p>
+    </div>
+  </div>
+
+  <div class="quiet-note">
+    <strong>Before you join:</strong> this is a learning community, not a signal service. Nothing here should be treated as investment advice — markets carry real risk, and every decision you make with your own money is yours to make.
+  </div>
+
+  <div class="legal">
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('p', this)">Privacy</button>
+      <button class="tab" onclick="showTab('d', this)">Disclaimer</button>
+      <button class="tab" onclick="showTab('t', this)">Terms</button>
+    </div>
+
+    <div class="info active" id="p">
+      We use Meta Pixel for ad analytics on this page. We don't collect personal or financial information here — when you tap through, you're moving to Telegram, which has its own privacy policy.
+    </div>
+
+    <div class="info" id="d">
+      <strong>Disclaimer:</strong> ఈ పేజీ మరియు దీనికి అనుసంధానించబడిన టెలిగ్రామ్ గ్రూప్ కేవలం విద్యా ప్రయోజనాల కోసం మాత్రమే. ఇవి ఏ పెట్టుబడిని కొనడానికి, అమ్మడానికి లేదా ఉంచుకోవడానికి సిఫార్సు కాదు. ట్రేడింగ్ మరియు పెట్టుబడిలో నష్టపోయే ప్రమాదం ఉంది.
+    </div>
+
+    <div class="info" id="t">
+      చేరడం ద్వారా, గ్రూప్‌లో పంచుకున్న కంటెంట్ విద్యాపరమైనదని, ఏ ఫలితానికీ హామీ లేదని, మరియు మీ ట్రేడింగ్ నిర్ణయాలకు మీరే బాధ్యులని మీరు అంగీకరిస్తున్నారు.
+    </div>
+  </div>
+
+  <div class="ad-credit">
+    <p>Advertised by SRS Marketing Agency</p>
+    <a href="https://t.me/srsagency" target="_blank">Visit @ SRS Marketing</a>
+  </div>
+
+</div>
+
+<script>
+function showTab(id, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.info').forEach(i => i.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+</script>
+
+<!-- ===================== TRACKING SCRIPT — anti-fake-click logic ===================== -->
+<script>
+(() => {
+  'use strict';
+
+  const CONFIG = Object.freeze({
+    pixelId: '2135032810416149',
+    telegramUrl: 'https://t.me/+tga_JjN7GUgzZmE1',
+    // A click only "qualifies" (fires Lead + gets the slower, tracked redirect)
+    // once the visitor has been on the page a moment AND shown a real signal
+    // of being human. Anything else still redirects, but silently, with no
+    // signal sent to Meta — so Meta's optimization never learns from junk.
+    pageViewDelayMs: 3000,
+    passiveReaderDelayMs: 8000,
+    minimumClickTimeMs: 1000,
+    trackedRedirectDelayMs: 700,
+    fastRedirectDelayMs: 50,
+    pageViewSessionKey: 'learnwithmunaaf_qualified_page_view'
+  });
+
+  const pageOpenedAt = Date.now();
+
+  let pageViewTracked = false;
+  let leadTracked = false;
+  let navigationStarted = false;
+  let humanInteractionDetected = false;
+
+  function loadMetaPixel() {
+    const pixelGuardKey = `__learnwithmunaafPixelInitialized_${CONFIG.pixelId}`;
+
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return;
+      n = f.fbq = function () {
+        n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+      };
+      if (!f._fbq) f._fbq = n;
+      n.push = n;
+      n.loaded = true;
+      n.version = '2.0';
+      n.queue = [];
+      t = b.createElement(e);
+      t.async = true;
+      t.src = v;
+      s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s);
+    }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+
+    if (window[pixelGuardKey]) return;
+
+    let pixelAlreadyRegistered = false;
+    try {
+      if (typeof fbq.getState === 'function') {
+        const pixelState = fbq.getState();
+        pixelAlreadyRegistered = pixelState.pixels.some((pixel) =>
+          String(pixel.id) === String(CONFIG.pixelId)
+        );
+      }
+    } catch (error) {
+      pixelAlreadyRegistered = false;
+    }
+
+    if (!pixelAlreadyRegistered) {
+      fbq('init', CONFIG.pixelId);
+    }
+
+    window[pixelGuardKey] = true;
+  }
+
+  function sessionPageViewExists() {
+    try {
+      return sessionStorage.getItem(CONFIG.pageViewSessionKey) === 'true';
+    } catch (error) {
+      return false;
+    }
+  }
+
+  function saveSessionPageView() {
+    try {
+      sessionStorage.setItem(CONFIG.pageViewSessionKey, 'true');
+    } catch (error) {
+      // ignore
+    }
+  }
+
+  // Headless browsers / automation tools (the most common source of fake
+  // clicks on ad landing pages) expose this flag — real phones/browsers don't.
+  function automationDetected() {
+    return navigator.webdriver === true;
+  }
+
+  function tryQualifiedPageView() {
+    const timeOnPageMs = Date.now() - pageOpenedAt;
+    const interactionQualified =
+      humanInteractionDetected && timeOnPageMs >= CONFIG.pageViewDelayMs;
+    const passiveReaderQualified = timeOnPageMs >= CONFIG.passiveReaderDelayMs;
+
+    const canTrack =
+      !pageViewTracked &&
+      !sessionPageViewExists() &&
+      !automationDetected() &&
+      (interactionQualified || passiveReaderQualified) &&
+      document.visibilityState === 'visible' &&
+      document.hasFocus() &&
+      typeof window.fbq === 'function';
+
+    if (!canTrack) return;
+
+    fbq('track', 'PageView', {
+      qualified_view: true,
+      human_interaction: humanInteractionDetected,
+      qualification: interactionQualified ? 'interaction_3_seconds' : 'focused_8_seconds',
+      time_on_page: Math.round(timeOnPageMs / 1000)
+    });
+
+    pageViewTracked = true;
+    saveSessionPageView();
+  }
+
+  // Only a real, trusted (non-scripted) scroll/tap/keypress counts.
+  function recordHumanInteraction(event) {
+    if (!event.isTrusted || humanInteractionDetected) return;
+    humanInteractionDetected = true;
+    tryQualifiedPageView();
+  }
+
+  function initializeVisitorQualification() {
+    ['pointerdown', 'touchstart', 'keydown', 'scroll', 'mousemove'].forEach((eventName) => {
+      window.addEventListener(eventName, recordHumanInteraction, { passive: true, once: true });
+    });
+
+    window.setTimeout(tryQualifiedPageView, CONFIG.pageViewDelayMs);
+    window.setTimeout(tryQualifiedPageView, CONFIG.passiveReaderDelayMs);
+  }
+
+  function handleTelegramClick(event) {
+    event.preventDefault();
+
+    if (navigationStarted) return; // blocks double-click / double-tap duplicate fires
+    navigationStarted = true;
+
+    const timeOnPageMs = Date.now() - pageOpenedAt;
+    const isQualifiedClick =
+      event.isTrusted &&               // rules out scripted/synthetic clicks
+      !automationDetected() &&         // rules out headless/bot browsers
+      timeOnPageMs >= CONFIG.minimumClickTimeMs; // rules out instant auto-clickers
+
+    if (isQualifiedClick && !leadTracked && typeof window.fbq === 'function') {
+      fbq('track', 'Lead', {
+        value: 0,
+        currency: 'INR',
+        destination: 'Telegram',
+        time_on_page: Math.round(timeOnPageMs / 1000)
+      });
+      leadTracked = true;
+    }
+
+    // Genuine clicks get a small tracked delay so the pixel beacon has time
+    // to actually leave the browser before navigation. Everything else is
+    // sent on to Telegram immediately, with no event fired — the visitor
+    // is never blocked, only the reporting to Meta is filtered.
+    const redirectDelay = isQualifiedClick
+      ? CONFIG.trackedRedirectDelayMs
+      : CONFIG.fastRedirectDelayMs;
+
+    window.setTimeout(() => {
+      window.location.assign(CONFIG.telegramUrl);
+    }, redirectDelay);
+
+    // Safety net: if the redirect is ever blocked (some in-app browsers
+    // swallow navigation), reveal a manual fallback link shortly after.
+    window.setTimeout(() => {
+      const fallbackLink = document.getElementById('fallbackLink');
+      if (fallbackLink) fallbackLink.classList.add('show');
+    }, redirectDelay + 600);
+  }
+
+  function initializeTelegramButtons() {
+    const buttons = document.querySelectorAll('.join-link, .jnBtn');
+    buttons.forEach((button) => {
+      if (button.tagName === 'A') button.href = CONFIG.telegramUrl;
+      button.addEventListener('click', handleTelegramClick);
+    });
+
+    const fallbackLink = document.getElementById('fallbackLink');
+    if (fallbackLink) fallbackLink.href = CONFIG.telegramUrl;
+  }
+
+  loadMetaPixel();
+  initializeVisitorQualification();
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeTelegramButtons, { once: true });
+  } else {
+    initializeTelegramButtons();
+  }
+})();
+</script>
+
+</body>
+</html>
